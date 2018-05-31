@@ -3,7 +3,9 @@ Version: 0.0.0.9000
 Title: Easy flexible access to manually curated sets of genes (programs)
 Description: Easy flexible access to manually curated sets of genes (programs).
 Authors@R: person("Julie", "Laffy", email = "julie.laffy@weizmann.ac.il", role = c("aut", "cre"))
-License: What license it uses
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
+Imports:
+    dplyr
