@@ -1,5 +1,3 @@
-%>% <- dplyr::`%>%`
-
 retrieve <- function(value, df) {
 
   out <- df %>%
