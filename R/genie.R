@@ -10,9 +10,9 @@ retrieve <- function(value, df) {
 }
 
 
-genie <- function(key = gbm_default,
-                  df = gbm_data,
-                  hashtable = gbm_hashtable) {
+genie <- function(key = genie::gbm_default,
+                  df = genie::gbm_data,
+                  hashtable = genie::gbm_hashtable) {
 
   retrieve(value = hashtable[key], df = df)
 
