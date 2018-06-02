@@ -1,12 +1,18 @@
-# addData <- function(df, overwrite = FALSE) {
-# 
-#   if (isTRUE(overwrite)) {
-# 	gbm_data.old <- genie::gbm_data
-# 	usethis::use_data(gbm_data.old)
-#   }
-# 
-#   usethis::use_data(substitute(df), overwrite = overwrite)
-# }
+programPrep <- function(gene, program, hashtable = genie::gbm_hashtable) {
+
+  program <- hashtable[program]
+
+  if (any(is.na(program))) {
+	stop('1 or more programs not recognised.')
+  }
+
+  if (length(program) == 1 & length(gene) > 1) {
+	program <- rep(program, length(gene))
+  }
+
+  program
+
+}
 
 
 structureRows <- function(df, nrow = 1) {
@@ -14,26 +20,27 @@ structureRows <- function(df, nrow = 1) {
   dim(df) <- c(nrow, 2)
   colnames(df) <- c('gene', 'program')
   df
+
 }
 
 
-addRows <- function(.gene,
-					.program,
+addRows <- function(gene,
+					program,
 					addTo = genie::gbm_data,
 					hashtable = genie::gbm_hashtable,
 					permanent = FALSE,
 					overwrite = FALSE) {
 
-  .program <- hashtable[.program]
+  program <- programPrep(gene = gene,
+						 program = program,
+						 hashtable = hashtable)
 
-  adding <- mapply(cbind,
-				   .gene,
-				   .program,
-				   USE.NAMES = F,
-				   SIMPLIFY = 'matrix')
+  gene.bound <- cbind(gene)
+  program.bound <- cbind(program)
+  adding <- rbind(gene.bound, program.bound)
 
-  adding <- structureRows(df=adding, nrow=length(.gene))
-  print(adding)
+  adding <- structureRows(df = adding,
+						  nrow = length(gene))
 
   rbind(addTo, adding)
 
